@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Customer Dashbord {% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+
+{% block header %}
+{% include "includes/header.html" %}
+{% endblock header %}
+
+
+{% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y bg">
+    {% include "includes/alerts.html" %}
+    <div class="container">
+        <div class="row">
+        {% include "includes/dashbord_sidebar.html" %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">Logged in as : </strong>
+                <span>{{ user.full_name }}</span>
+            </header>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    {% for order_product in order_product %}
+                        <tr>
+                            <td width="65">
+                                <img src="{{ order_product.product.images.url }}" class="img-xs border">
+                            </td>
+                            <td> 
+                                <p class="title mb-0"> {{ order_product.product.product_name }}</p>
+                                <var class="price text-muted">{{ order_product.order.order_number }}</var>
+                            </td>
+                            <td> Seller <br> {{ order_product.product.store}} </td>
+                            <td width="250"> <a href="#" class="btn btn-outline-primary">Track order</a> 
+                                <a href="{% url 'account:order_details' order_product.order.order_number %}" class="btn btn-light"> Details </a> </td>
+                        </tr>
+                        
+                    {% endfor %}
+                </table>
+                </div> <!-- table-responsive .end// -->
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+    
+
+{% endblock content %}
+
+{% block footer %}
+{% include "includes/footer.html" %}
+{% endblock footer %}
+
+
+{% block js %}
+    
+{% endblock js %}

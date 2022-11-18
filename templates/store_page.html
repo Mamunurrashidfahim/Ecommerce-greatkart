@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}  {% endblock title %}
+
+{% block css %}
+<style>
+    body{
+        margin-top:20px;
+        background:#eee;
+    }
+    
+    .profile-header {
+        position: relative;
+        overflow: hidden
+    }
+    
+    .profile-header .profile-header-cover {
+        background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0
+    }
+    
+    .profile-header .profile-header-cover:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, .75) 100%)
+    }
+    
+    .profile-header .profile-header-content {
+        color: #fff;
+        padding: 25px
+    }
+    
+    .profile-header-img {
+        float: left;
+        width: 120px;
+        height: 120px;
+        overflow: hidden;
+        position: relative;
+        z-index: 10;
+        margin: 0 0 -20px;
+        padding: 3px;
+        border-radius: 4px;
+        background: #fff
+    }
+    
+    .profile-header-img img {
+        max-width: 100%
+    }
+    
+    .profile-header-info h4 {
+        font-weight: 500;
+        color: #fff
+    }
+    
+    .profile-header-img+.profile-header-info {
+        margin-left: 140px
+    }
+    
+    .profile-header .profile-header-content,
+    .profile-header .profile-header-tab {
+        position: relative
+    }
+</style>
+{% endblock css %}
+{% block header %}
+{% include "includes/header.html" %}
+{% endblock header %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+       <div class="col-md-12">
+          <div id="content" class="content content-full-width">
+             <!-- begin profile -->
+            <div class="profile">
+                <div class="profile-header">
+                   <!-- BEGIN profile-header-cover -->
+                   <div class="profile-header-cover"></div>
+                   <!-- END profile-header-cover -->
+                   <!-- BEGIN profile-header-content -->
+                   <div class="profile-header-content">
+                      <!-- BEGIN profile-header-img -->
+                      <div class="profile-header-img">
+                         <img src="/media/{{ store_page.store_image}}" alt="">
+                      </div>
+                      <!-- END profile-header-img -->
+                      <!-- BEGIN profile-header-info -->
+                      <div class="profile-header-info">
+                         <h4 class="m-t-10 m-b-5">{{store_page.store_name}}</h4>
+                         <p class="m-b-10">{{store_page.store_owner.first_name}} {{store_page.store_owner.last_name}}</p>
+                         <a href="#" class="btn btn-outline-info mb-2">Follow</a>
+                      </div>
+                      <!-- END profile-header-info -->
+                   </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="container mt-3">
+<div class="row">
+    {% for product in product %}
+
+    <div class="col-md-3">
+        <div class="card card-product-grid">
+            <a href="" class="img-wrap"> <img src="/media/{{ product.images}}"> </a>
+            <figcaption class="info-wrap">
+                <a href="{{ product.get_url }}" class="title">{{ product.product_name}}</a>
+                <a href="{{ store.get_url }}"><small>{{ product.store.store_name}}</small></a>
+                <div class="price mt-1">${{product.price}}</div> <!-- price-wrap.// -->
+            </figcaption>
+        </div>
+    </div> <!-- col.// -->
+    
+    {% endfor %}
+</div> <!-- row.// -->
+</div><!-- container // -->
+{% endblock content %}
+
+
+
+
+
+{% block footer %}
+{% include "includes/footer.html" %}
+{% endblock footer %}
+{% block js %}
+    
+{% endblock js %}
+

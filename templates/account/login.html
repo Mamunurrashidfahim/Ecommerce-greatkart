@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} login {% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
+
+{% block header %}
+{% include "includes/header.html" %}
+{% endblock header %}
+
+
+{% block content %}
+<section class="section-conten padding-y" style="min-height:84vh">
+
+  {% if request.GET.command == 'verification' %}
+
+<div class="card mx-auto alert alert-info text-center" role="alert" style="max-width: 1024px; margin-top:100px;">
+Thank you for registering with us. We have sent you a verification email to your email address [{{request.GET.email}}]
+<br><br>
+Already Verified? <a href="{% url 'account:user_login' %}">Login</a>
+	</div>
+
+{% else %}
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+          <div class="card-body">
+            {% include "includes/alerts.html" %}
+          <h4 class="card-title mb-4">Sign in</h4>
+          
+          <form method="POST">
+              {% csrf_token %}
+              <div class="form-group">
+                 <input type="email" class="form-control" placeholder="Email Address" name="email" >
+              </div> <!-- form-group// -->
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" name='password'>
+              </div> <!-- form-group// -->
+              
+              <div class="form-group">
+                  <a href="{% url 'account:forgotPassword' %}" class="float-right">Forgot password?</a> 
+               
+              </div> <!-- form-group form-check .// -->
+              <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+              </div> <!-- form-group// -->    
+          </form>
+          </div> <!-- card-body.// -->
+        </div> <!-- card .// -->
+    
+         <p class="text-center mt-4">Don't have account? <a href="{% url 'account:signup'%}">Sign up</a></p>
+         <br><br>
+    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+    {% endif %}
+    
+    </section>
+{% endblock content %}
+
+{% block footer %}
+{% include "includes/footer.html" %}
+{% endblock footer %}
+
+
+{% block js %}
+    
+{% endblock js %}
